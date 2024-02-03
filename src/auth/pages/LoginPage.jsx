@@ -6,7 +6,7 @@ import { AuthLayout } from '../layout/AuthLayout';
 export const LoginPage = () => {
   return (
     <AuthLayout
-    title='Login'
+    title='Log in'
     >
 
     <form>
@@ -19,9 +19,8 @@ export const LoginPage = () => {
               sx={{ mb: 2 }}
             >
               <TextField
-                label="Correo"
+                label="email"
                 type="email"
-                placeholder='correo@google.com'
                 fullWidth
               />
             </Grid>
@@ -31,9 +30,8 @@ export const LoginPage = () => {
               sx={{ mb: 2 }}
             >
               <TextField
-                label="Contraseña"
+                label="password"
                 type="password"
-                placeholder='···········'
                 fullWidth
               />
             </Grid>
@@ -86,7 +84,7 @@ export const LoginPage = () => {
                 color='inherit'
                 to='/auth/register'
               >
-                Crear una cuenta
+                Create an account
               </Link>
             </Grid>
           </Grid>

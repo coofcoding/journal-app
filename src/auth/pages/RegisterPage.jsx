@@ -6,7 +6,7 @@ import { AuthLayout } from '../layout/AuthLayout';
 export const RegisterPage = () => {
   return (
     <AuthLayout
-    title='Crear cuenta'
+    title='Register'
     >
 
     <form>
@@ -19,9 +19,8 @@ export const RegisterPage = () => {
               sx={{ mb: 2 }}
             >
               <TextField
-                label="Nombre completo"
+                label="username"
                 type="text"
-                placeholder='Jhon Doe'
                 fullWidth
               />
             </Grid>
@@ -31,9 +30,8 @@ export const RegisterPage = () => {
               sx={{ mb: 2 }}
             >
               <TextField
-                label="Correo"
+                label="email"
                 type="email"
-                placeholder='correo@google.com'
                 fullWidth
               />
             </Grid>
@@ -43,9 +41,8 @@ export const RegisterPage = () => {
               sx={{ mb: 2 }}
             >
               <TextField
-                label="Contraseña"
+                label="password"
                 type="password"
-                placeholder='···········'
                 fullWidth
               />
             </Grid>
@@ -66,7 +63,7 @@ export const RegisterPage = () => {
                     mb: 2,
                   }}
                 >
-                  Crear Cuenta
+                  CREATE ACCOUNT
                 </Button>
               </Grid>
             </Grid>
@@ -75,13 +72,13 @@ export const RegisterPage = () => {
               direction='row'
               justifyContent='end'
             >
-            <Typography sx={{ mr: 1 }}>¿Ya tienes cuenta?</Typography>
+            <Typography sx={{ mr: 1 }}>have you an account?</Typography>
               <Link
                 component={ RouterLink }
                 color='inherit'
                 to='/auth/login'
               >
-                Ingresar
+                Log in
               </Link>
             </Grid>
           </Grid>
