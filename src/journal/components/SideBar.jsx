@@ -1,4 +1,4 @@
-import { TurnedInNot } from "@mui/icons-material"
+import { CalendarMonth } from "@mui/icons-material"
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
 
 export const SideBar = ({ drawerWidth = 240 }) => {
@@ -32,11 +32,11 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                             <ListItem key={text} disablePadding>
                                 <ListItemButton>
                                     <ListItemIcon>
-                                        <TurnedInNot />
+                                        <CalendarMonth />
                                     </ListItemIcon>
                                     <Grid container>
                                         <ListItemText primary={ text } />
-                                        <ListItemText secondary={'Section description'} />
+                                        <ListItemText secondary={`month description...`} />
                                     </Grid>
                                 </ListItemButton>
                             </ListItem>
