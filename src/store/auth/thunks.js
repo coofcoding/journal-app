@@ -1,3 +1,4 @@
+import { signInWithGoogle } from "../../firebase/provider"
 import { checkingCredentials } from "./"
 
 export const checkingAuthentication = ( { email, password } ) => {
@@ -13,5 +14,7 @@ export const checkingAuthentication = ( { email, password } ) => {
 export const startGoogleSignIn = () => {
     return async ( dispatch ) => {
         dispatch( checkingCredentials() );
+
+        const result = await signInWithGoogle();
     }
 }

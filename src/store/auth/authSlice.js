@@ -18,7 +18,6 @@ export const authSlice = createSlice({
 
         },
         checkingCredentials: (state) => {
-            console.log('reached')
             state.status = 'checking';
         }
     }
