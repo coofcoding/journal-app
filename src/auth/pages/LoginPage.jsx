@@ -2,93 +2,129 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Button, Grid, Typography, TextField, Link } from '@mui/material';
 import { Google } from '@mui/icons-material';
 import { AuthLayout } from '../layout/AuthLayout';
+import { useForm } from '../../hooks';
+import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const LoginPage = () => {
+
+  const { email, password, onInputChange, formState } = useForm({
+    email: 'kevin@gmail.com',
+    password: '123456',
+  });
+
+  // getSelectors and get useDispatch hook to the store.js file
+  const { status } = useSelector( (state) => state.auth );
+  const dispatch = useDispatch();
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    // after to it, create an dispatch for the function in my thunks.js file
+    dispatch ( checkingAuthentication ({
+      email: formState.email,
+      password: formState.password,
+    })
+    )
+  }
+
+  const onGoogleSignIn = () => {
+    dispatch( startGoogleSignIn() );
+  }
+
   return (
     <AuthLayout
-    title='Log in'
+      title='Log in'
     >
 
-    <form>
+      <form onSubmit={ onSubmit }>
+        <Grid
+          container
+        >
+          <Grid
+            item
+            xs={12}
+            sx={{ mb: 2 }}
+          >
+            <TextField
+              label="email"
+              type="email"
+              fullWidth
+              name='email'
+              value={ email }
+              onChange={ onInputChange }
+            />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sx={{ mb: 2 }}
+          >
+            <TextField
+              label="password"
+              type="password"
+              fullWidth
+              name='password'
+              value={ password }
+              onChange={ onInputChange }
+            />
+          </Grid>
+
           <Grid
             container
+            spacing={2}
           >
             <Grid
               item
               xs={12}
-              sx={{ mb: 2 }}
+              sm={6}
             >
-              <TextField
-                label="email"
-                type="email"
+              <Button
+                variant='contained'
                 fullWidth
-              />
+                sx={{
+                  height: 50,
+                  mb: 2,
+                }}
+                type='submit'
+              >
+                Login
+              </Button>
             </Grid>
             <Grid
               item
               xs={12}
-              sx={{ mb: 2 }}
+              sm={6}
             >
-              <TextField
-                label="password"
-                type="password"
+              <Button
+                variant='contained'
                 fullWidth
-              />
-            </Grid>
-
-            <Grid
-              container
-              spacing={2}
-            >
-              <Grid
-                item
-                xs={12}
-                sm={6}
+                sx={{
+                  height: 50,
+                  mb: 2,
+                }}
+                onClick={onGoogleSignIn}
               >
-                <Button
-                  variant='contained'
-                  fullWidth
-                  sx={{
-                    height: 50,
-                    mb: 2,
-                  }}
-                >
-                  Login
-                </Button>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={6}
-              >
-                <Button
-                  variant='contained'
-                  fullWidth
-                  sx={{
-                    height: 50,
-                    mb: 2,
-                  }}
-                >
-                  <Google />
-                  <Typography sx={{ ml: 1 }}>Google</Typography>
-                </Button>
-              </Grid>
-            </Grid>
-            <Grid
-              container
-              direction='row'
-              justifyContent='end'
-            >
-              <Link
-                component={ RouterLink }
-                color='inherit'
-                to='/auth/register'
-              >
-                Create an account
-              </Link>
+                <Google />
+                <Typography sx={{ ml: 1 }}>Google</Typography>
+              </Button>
             </Grid>
           </Grid>
-        </form>
+          <Grid
+            container
+            direction='row'
+            justifyContent='end'
+          >
+            <Link
+              component={RouterLink}
+              color='inherit'
+              to='/auth/register'
+            >
+              Create an account
+            </Link>
+          </Grid>
+        </Grid>
+      </form>
 
     </AuthLayout>
   )
