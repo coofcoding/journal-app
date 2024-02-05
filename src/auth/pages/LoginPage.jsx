@@ -5,6 +5,7 @@ import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
 import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
 import { useSelector, useDispatch } from 'react-redux';
+import { useMemo } from 'react';
 
 export const LoginPage = () => {
 
@@ -16,6 +17,8 @@ export const LoginPage = () => {
   // getSelectors and get useDispatch hook to the store.js file
   const { status } = useSelector( (state) => state.auth );
   const dispatch = useDispatch();
+
+  const isAutheticated = useMemo( () => status === 'checking', [status] );
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -87,6 +90,7 @@ export const LoginPage = () => {
                   mb: 2,
                 }}
                 type='submit'
+                disabled={ isAutheticated }
               >
                 Login
               </Button>
@@ -104,6 +108,7 @@ export const LoginPage = () => {
                   mb: 2,
                 }}
                 onClick={onGoogleSignIn}
+                disabled={ isAutheticated }
               >
                 <Google />
                 <Typography sx={{ ml: 1 }}>Google</Typography>
