@@ -2,6 +2,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Button, Grid, Typography, TextField, Link } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
+import { useState } from 'react';
 
 const formData = {
   email: '',
@@ -9,12 +10,24 @@ const formData = {
   displayName: '',
 }
 
+const formValidations = {
+  email: [ (value) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value) , 'insert a valid e-mail'],
+  password: [ (value) => value.length >= 6 , 'the password must have at least 6 characters'],
+  displayName: [ (value) => value.length >= 1 , 'the name is obligatory'],
+}
+
 export const RegisterPage = () => {
 
-  const { displayName, email, password, onInputChange, formState } = useForm(formData);
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
+  const { displayName, email, password, onInputChange, formState, isFormValid, emailValid, passwordValid, displayNameValid } = useForm(formData, formValidations);
 
   const onSubmit = ( event ) => {
     event.preventDefault();
+
+    if( isFormValid ) return;
+
+    setFormSubmitted(true);
   }
 
   return (
@@ -38,6 +51,8 @@ export const RegisterPage = () => {
               name='displayName'
               value={displayName}
               onChange={onInputChange}
+              error={ !!displayNameValid && formSubmitted }
+              helperText={ displayNameValid }
             />
           </Grid>
           <Grid
@@ -52,6 +67,8 @@ export const RegisterPage = () => {
               name='email'
               value={email}
               onChange={onInputChange}
+              error={ !!emailValid && formSubmitted }
+              helperText={ emailValid }
             />
           </Grid>
           <Grid
@@ -66,6 +83,8 @@ export const RegisterPage = () => {
               name='password'
               value={password}
               onChange={onInputChange}
+              error={ !!passwordValid && formSubmitted }
+              helperText={ passwordValid }
             />
           </Grid>
 
