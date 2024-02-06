@@ -1,30 +1,30 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Grid, Typography, TextField, Link } from '@mui/material';
+import { Button, Grid, Typography, TextField, Link, Alert } from '@mui/material';
 import { Google } from '@mui/icons-material';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
-import { checkingAuthentication, startGoogleSignIn } from '../../store/auth';
+import { checkingAuthentication, startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { useMemo } from 'react';
 
 export const LoginPage = () => {
 
   const { email, password, onInputChange, formState } = useForm({
-    email: 'kevin@gmail.com',
-    password: '123456',
+    email: '',
+    password: '',
   });
 
   // getSelectors and get useDispatch hook to the store.js file
-  const { status } = useSelector( (state) => state.auth );
+  const { status, errorMsg } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  const isAutheticated = useMemo( () => status === 'checking', [status] );
+  const isAutheticated = useMemo(() => status === 'checking' || status === 'authenticated', [status]);
 
   const onSubmit = (event) => {
     event.preventDefault();
 
     // after to it, create an dispatch for the function in my thunks.js file
-    dispatch ( checkingAuthentication ({
+    dispatch(startLoginWithEmailPassword({
       email: formState.email,
       password: formState.password,
     })
@@ -32,7 +32,7 @@ export const LoginPage = () => {
   }
 
   const onGoogleSignIn = () => {
-    dispatch( startGoogleSignIn() );
+    dispatch(startGoogleSignIn());
   }
 
   return (
@@ -40,7 +40,7 @@ export const LoginPage = () => {
       title='Log in'
     >
 
-      <form onSubmit={ onSubmit }>
+      <form onSubmit={onSubmit}>
         <Grid
           container
         >
@@ -54,8 +54,8 @@ export const LoginPage = () => {
               type="email"
               fullWidth
               name='email'
-              value={ email }
-              onChange={ onInputChange }
+              value={email}
+              onChange={onInputChange}
             />
           </Grid>
           <Grid
@@ -68,8 +68,8 @@ export const LoginPage = () => {
               type="password"
               fullWidth
               name='password'
-              value={ password }
-              onChange={ onInputChange }
+              value={password}
+              onChange={onInputChange}
             />
           </Grid>
 
@@ -77,6 +77,19 @@ export const LoginPage = () => {
             container
             spacing={2}
           >
+            <Grid
+              item
+              xs={12}
+              sm={12}
+            >
+              {
+                (!!errorMsg)
+                  ? <Alert severity='error' >
+                      {errorMsg}
+                  </Alert>
+                  : ''
+              }
+            </Grid>
             <Grid
               item
               xs={12}
@@ -90,7 +103,7 @@ export const LoginPage = () => {
                   mb: 2,
                 }}
                 type='submit'
-                disabled={ isAutheticated }
+                disabled={isAutheticated}
               >
                 Login
               </Button>
@@ -108,7 +121,7 @@ export const LoginPage = () => {
                   mb: 2,
                 }}
                 onClick={onGoogleSignIn}
-                disabled={ isAutheticated }
+                disabled={isAutheticated}
               >
                 <Google />
                 <Typography sx={{ ml: 1 }}>Google</Typography>
