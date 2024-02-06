@@ -1,8 +1,12 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Button, Grid, Typography, TextField, Link } from '@mui/material';
+import { Button, Grid, Typography, TextField, Link, Alert } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { startCreatingUserWithEmailPassword } from '../../store/auth';
+import { useSelector } from 'react-redux';
+import { useMemo } from 'react';
 
 const formData = {
   email: '',
@@ -11,23 +15,30 @@ const formData = {
 }
 
 const formValidations = {
-  email: [ (value) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value) , 'insert a valid e-mail'],
-  password: [ (value) => value.length >= 6 , 'the password must have at least 6 characters'],
-  displayName: [ (value) => value.length >= 1 , 'the name is obligatory'],
+  email: [(value) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value), 'insert a valid e-mail'],
+  password: [(value) => value.length >= 6, 'the password must have at least 6 characters'],
+  displayName: [(value) => value.length >= 1, 'the name is obligatory'],
 }
 
 export const RegisterPage = () => {
+
+  const dispatch = useDispatch();
+  const { status, errorMsg } = useSelector(state => state.auth)
+
+  const isAuthenticated = useMemo(() => status === 'checking', [status]);
 
   const [formSubmitted, setFormSubmitted] = useState(false)
 
   const { displayName, email, password, onInputChange, formState, isFormValid, emailValid, passwordValid, displayNameValid } = useForm(formData, formValidations);
 
-  const onSubmit = ( event ) => {
+  const onSubmit = (event) => {
     event.preventDefault();
 
-    if( isFormValid ) return;
+    if (!isFormValid) return;
 
     setFormSubmitted(true);
+
+    dispatch(startCreatingUserWithEmailPassword(formState));
   }
 
   return (
@@ -35,7 +46,7 @@ export const RegisterPage = () => {
       title='Register'
     >
 
-      <form onSubmit={ onSubmit }>
+      <form onSubmit={onSubmit}>
         <Grid
           container
         >
@@ -51,8 +62,8 @@ export const RegisterPage = () => {
               name='displayName'
               value={displayName}
               onChange={onInputChange}
-              error={ !!displayNameValid && formSubmitted }
-              helperText={ displayNameValid }
+              error={!!displayNameValid && formSubmitted}
+              helperText={displayNameValid}
             />
           </Grid>
           <Grid
@@ -67,8 +78,8 @@ export const RegisterPage = () => {
               name='email'
               value={email}
               onChange={onInputChange}
-              error={ !!emailValid && formSubmitted }
-              helperText={ emailValid }
+              error={!!emailValid && formSubmitted}
+              helperText={emailValid}
             />
           </Grid>
           <Grid
@@ -83,8 +94,8 @@ export const RegisterPage = () => {
               name='password'
               value={password}
               onChange={onInputChange}
-              error={ !!passwordValid && formSubmitted }
-              helperText={ passwordValid }
+              error={!!passwordValid && formSubmitted}
+              helperText={passwordValid}
             />
           </Grid>
 
@@ -92,6 +103,20 @@ export const RegisterPage = () => {
             container
             spacing={2}
           >
+            <Grid
+              item
+              xs={12}
+            >
+              {
+                (!!errorMsg)
+                  ? <Alert
+                    severity='error'
+                  >
+                    {errorMsg}
+                  </Alert>
+                  : ''
+              }
+            </Grid>
             <Grid
               item
               xs={12}
@@ -104,6 +129,7 @@ export const RegisterPage = () => {
                   mb: 2,
                 }}
                 type='submit'
+                disabled={isAuthenticated}
               >
                 CREATE ACCOUNT
               </Button>
