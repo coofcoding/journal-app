@@ -1,8 +1,12 @@
 import { collection, doc, setDoc } from "firebase/firestore/lite";
 import { FirebaseDB } from "../../firebase/config";
+import { addNewEmptyNote, savingNewNote, setActiveNote, setNotes } from "./";
+import { loadNotes } from "../../helpers/loadNotes";
 
 export const startNewNote = () => {
     return async( dispatch, getState ) => {
+        
+        dispatch( savingNewNote( ) );
 
         const { uid } = getState().auth;
 
@@ -21,5 +25,19 @@ export const startNewNote = () => {
 
         // TODO: generate the dispatch( newNote ) and activeNote
 
+        dispatch( addNewEmptyNote( newNote ) );
+        dispatch( setActiveNote( newNote ) );
+
+    }
+}
+
+export const startLoadingNotes = () => {
+    return async( dispatch, getState ) => {
+
+        const { uid } = getState().auth;
+
+        const notes = await loadNotes( uid );
+
+        dispatch( setNotes( notes ) )
     }
 }

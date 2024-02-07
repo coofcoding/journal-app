@@ -25,7 +25,7 @@ export const NothingSelectedView = () => {
             <Grid
                 item
             >
-                <Typography variant="p" color={'warning_text.main'}>Please select a category</Typography>
+                <Typography variant="p" color={'warning_text.main'}>Please select a note</Typography>
             </Grid>
         </Grid>
     )
