@@ -7,6 +7,7 @@ export const journalSlice = createSlice({
         messageSaved: '',
         notes: [],
         active: null,
+        imageUrls: [],
         // active: {
         //     id: 'abc',
         //     title: '',

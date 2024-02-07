@@ -1,8 +1,12 @@
 import { BookmarkAdd } from "@mui/icons-material"
 import { Button, Grid, TextField, Typography } from "@mui/material"
 import { ImageGallery } from "../components"
+import { useSelector } from "react-redux"
 
 export const NoteView = () => {
+
+    const { active } = useSelector( state => state.journal );
+
     return (
         <Grid
             container
@@ -16,7 +20,7 @@ export const NoteView = () => {
                 borderRadius: 3
             }}>
             <Grid item>
-                <Typography fontSize={39} fontWeight='light'>2nd February 2024</Typography>
+                <Typography fontSize={39} fontWeight='light'>{ active.date }</Typography>
             </Grid>
 
             <Grid item>
@@ -42,6 +46,7 @@ export const NoteView = () => {
                     fullWidth
                     label="title"
                     sx={{ border: 'none', mt: 1 }}
+                    value={ active.title }
                 />
 
                 <TextField
@@ -52,6 +57,7 @@ export const NoteView = () => {
                     minRows={5}
                     label="description"
                     sx={{ border: 'none', my: 1 }}
+                    value={ active.body }
                 />
             </Grid>
 

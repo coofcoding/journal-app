@@ -12,10 +12,16 @@ export const startNewNote = () => {
 
         // user: uid
 
+        const InstanceDate = new Date();
+
+        const monthsList = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+        let actualDate = `${("0" + InstanceDate.getDate()).slice(-2)} ${ monthsList[ InstanceDate.getMonth() ] } ${InstanceDate.getFullYear()}`;
+
         const newNote = {
             title: '',
             body: '',
-            date: new Date().getTime(),
+            date: actualDate,
         }
 
         const newDoc = doc( collection( FirebaseDB, `${ uid }/journal/notes` ) );
