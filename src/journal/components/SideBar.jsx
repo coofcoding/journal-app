@@ -1,7 +1,11 @@
 import { CalendarMonth } from "@mui/icons-material"
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { Avatar, Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { useSelector } from "react-redux";
 
 export const SideBar = ({ drawerWidth = 240 }) => {
+
+    const { displayName, photoURL, email } = useSelector(state => state.auth);
+
     return (
         <Box
             component='nav'
@@ -16,13 +20,36 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                 }}
             >
                 <Toolbar>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component='div'
+                    <Avatar
+                        sx={{
+                            mr: 1,
+                            border: `3px solid #543884`,
+                        }}
+                        src={photoURL}
+                        referrerPolicy="no-referrer" />
+                    <Grid container
+                        s
                     >
-                        Kevin López
-                    </Typography>
+                        <Typography
+                            variant="p"
+                            fontWeight={600}
+                            fontSize={16}
+                            noWrap
+                            maxWidth={150}
+                            component='div'
+                        >
+                            {displayName}
+                        </Typography>
+                        <Typography
+                            variant="span"
+                            fontWeight={400}
+                            fontSize={11}
+                            color="#7c7a7e"
+                            component='span'
+                        >
+                            {email}
+                        </Typography>
+                    </Grid>
                 </Toolbar>
                 <Divider />
 
@@ -35,7 +62,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                         <CalendarMonth />
                                     </ListItemIcon>
                                     <Grid container>
-                                        <ListItemText primary={ text } />
+                                        <ListItemText primary={text} />
                                         <ListItemText secondary={`month description...`} />
                                     </Grid>
                                 </ListItemButton>
