@@ -1,10 +1,12 @@
-import { CalendarMonth } from "@mui/icons-material"
-import { Avatar, Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
+import { Avatar, Box, Divider, Drawer, Grid, List, Toolbar, Typography } from "@mui/material"
 import { useSelector } from "react-redux";
+import { SideBarItem } from "./SideBarItem";
 
 export const SideBar = ({ drawerWidth = 240 }) => {
 
     const { displayName, photoURL, email } = useSelector(state => state.auth);
+    const { notes } = useSelector(state => state.journal);
+
 
     return (
         <Box
@@ -54,18 +56,11 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
                 <List>
                     {
-                        ['January', 'February', 'March', 'April', 'May', 'June', 'July'].map(text => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <CalendarMonth />
-                                    </ListItemIcon>
-                                    <Grid container>
-                                        <ListItemText primary={text} />
-                                        <ListItemText secondary={`month description...`} />
-                                    </Grid>
-                                </ListItemButton>
-                            </ListItem>
+                        notes.map( note => (
+                            <SideBarItem 
+                                key={ note.id }
+                                note = { note }
+                            />
                         ))
                     }
                 </List>
