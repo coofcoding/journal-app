@@ -28,7 +28,6 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                         src={photoURL}
                         referrerPolicy="no-referrer" />
                     <Grid container
-                        s
                     >
                         <Typography
                             variant="p"
