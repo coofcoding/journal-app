@@ -1,11 +1,14 @@
-import { BookmarkAdd } from "@mui/icons-material"
+import { EditNote } from "@mui/icons-material"
 import { Button, Grid, TextField, Typography } from "@mui/material"
 import { ImageGallery } from "../components"
 import { useSelector } from "react-redux"
+import { useForm } from './../../hooks/useForm';
 
 export const NoteView = () => {
 
-    const { active } = useSelector( state => state.journal );
+    const { active : note } = useSelector( state => state.journal );
+
+    const { body, title, date, onInputChange, formState } = useForm( note );
 
     return (
         <Grid
@@ -20,7 +23,7 @@ export const NoteView = () => {
                 borderRadius: 3
             }}>
             <Grid item>
-                <Typography fontSize={39} fontWeight='light'>{ active.date }</Typography>
+                <Typography fontSize={39} fontWeight='light'>{ date }</Typography>
             </Grid>
 
             <Grid item>
@@ -34,7 +37,7 @@ export const NoteView = () => {
                         borderRadius: 50
                     }}
                 >
-                    <BookmarkAdd sx={{ mr: 1 }} />
+                    <EditNote sx={{ mr: 1 }} />
                     Save
                 </Button>
             </Grid>
@@ -46,7 +49,9 @@ export const NoteView = () => {
                     fullWidth
                     label="title"
                     sx={{ border: 'none', mt: 1 }}
-                    value={ active.title }
+                    value={ title }
+                    name="title"
+                    onChange={ onInputChange }
                 />
 
                 <TextField
@@ -57,7 +62,9 @@ export const NoteView = () => {
                     minRows={5}
                     label="description"
                     sx={{ border: 'none', my: 1 }}
-                    value={ active.body }
+                    value={ body }
+                    name="body"
+                    onChange={ onInputChange }
                 />
             </Grid>
 

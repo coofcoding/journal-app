@@ -7,12 +7,14 @@ import { checkingAuthentication, startGoogleSignIn, startLoginWithEmailPassword 
 import { useSelector, useDispatch } from 'react-redux';
 import { useMemo } from 'react';
 
+const formData = {
+  email: '',
+  password: '',
+}
+
 export const LoginPage = () => {
 
-  const { email, password, onInputChange, formState } = useForm({
-    email: '',
-    password: '',
-  });
+  const { email, password, onInputChange, formState } = useForm( formData );
 
   // getSelectors and get useDispatch hook to the store.js file
   const { status, errorMsg } = useSelector((state) => state.auth);
