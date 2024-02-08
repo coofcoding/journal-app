@@ -1,25 +1,45 @@
-import { EditNote } from "@mui/icons-material"
-import { Button, Grid, TextField, Typography } from "@mui/material"
-import { ImageGallery } from "../components"
-import { useSelector } from "react-redux"
+import { EditNote } from '@mui/icons-material'
+import { Button, Grid, TextField, Typography } from '@mui/material'
+import { ImageGallery } from '../components'
+import { useSelector } from 'react-redux'
 import { useForm } from './../../hooks/useForm';
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setActiveNote, startSavingNote } from "../../store/journal";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setActiveNote, startSavingNote } from '../../store/journal';
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal);
 
 export const NoteView = () => {
 
     const dispatch = useDispatch();
-    const { active : note } = useSelector( state => state.journal );
+    const { active: note, isSaving, messageSaved } = useSelector(state => state.journal);
 
-    const { body, title, date, onInputChange, formState } = useForm( note );
+    const { body, title, date, onInputChange, formState } = useForm(note);
 
     useEffect(() => {
-      dispatch( setActiveNote( formState ) )
-    }, [ formState ])
-    
+        dispatch(setActiveNote(formState))
+    }, [formState])
+
+    useEffect(() => {
+
+        if (messageSaved.length > 0) {
+            Swal.fire({
+                icon: "success",
+                title: 'Note updated successfully!',
+                text: messageSaved,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
+
+    }, [messageSaved])
+
+
     const handleSaveNote = () => {
-        dispatch( startSavingNote() );
+        dispatch(startSavingNote());
     }
 
     return (
@@ -35,7 +55,7 @@ export const NoteView = () => {
                 borderRadius: 3
             }}>
             <Grid item>
-                <Typography fontSize={39} fontWeight='light'>{ date }</Typography>
+                <Typography fontSize={39} fontWeight='light'>{date}</Typography>
             </Grid>
 
             <Grid item>
@@ -48,7 +68,8 @@ export const NoteView = () => {
                         backgroundColor: 'primary.main',
                         borderRadius: 50
                     }}
-                    onClick={ handleSaveNote }
+                    onClick={handleSaveNote}
+                    disabled={isSaving}
                 >
                     <EditNote sx={{ mr: 1 }} />
                     Save
@@ -62,9 +83,9 @@ export const NoteView = () => {
                     fullWidth
                     label="title"
                     sx={{ border: 'none', mt: 1 }}
-                    value={ title }
+                    value={title}
                     name="title"
-                    onChange={ onInputChange }
+                    onChange={onInputChange}
                 />
 
                 <TextField
@@ -75,9 +96,9 @@ export const NoteView = () => {
                     minRows={5}
                     label="description"
                     sx={{ border: 'none', my: 1 }}
-                    value={ body }
+                    value={body}
                     name="body"
-                    onChange={ onInputChange }
+                    onChange={onInputChange}
                 />
             </Grid>
 
