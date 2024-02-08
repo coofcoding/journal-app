@@ -3,12 +3,24 @@ import { Button, Grid, TextField, Typography } from "@mui/material"
 import { ImageGallery } from "../components"
 import { useSelector } from "react-redux"
 import { useForm } from './../../hooks/useForm';
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setActiveNote, startSavingNote } from "../../store/journal";
 
 export const NoteView = () => {
 
+    const dispatch = useDispatch();
     const { active : note } = useSelector( state => state.journal );
 
     const { body, title, date, onInputChange, formState } = useForm( note );
+
+    useEffect(() => {
+      dispatch( setActiveNote( formState ) )
+    }, [ formState ])
+    
+    const handleSaveNote = () => {
+        dispatch( startSavingNote() );
+    }
 
     return (
         <Grid
@@ -36,6 +48,7 @@ export const NoteView = () => {
                         backgroundColor: 'primary.main',
                         borderRadius: 50
                     }}
+                    onClick={ handleSaveNote }
                 >
                     <EditNote sx={{ mr: 1 }} />
                     Save
