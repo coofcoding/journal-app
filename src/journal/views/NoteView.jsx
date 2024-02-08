@@ -23,6 +23,7 @@ export const NoteView = () => {
 
     useEffect(() => {
         dispatch(setActiveNote(formState))
+        console.log('rerender')
     }, [formState])
 
     useEffect(() => {
