@@ -1,14 +1,16 @@
 import { EditNote } from '@mui/icons-material'
-import { Button, Grid, TextField, Typography } from '@mui/material'
+import { Button, Grid, IconButton, TextField, Typography } from '@mui/material'
 import { ImageGallery } from '../components'
 import { useSelector } from 'react-redux'
 import { useForm } from './../../hooks/useForm';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActiveNote, startSavingNote } from '../../store/journal';
+import { setActiveNote, startSavingNote, startUploadingFiles } from '../../store/journal';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import { UploadOutlined } from '@mui/icons-material';
+import { useRef } from 'react';
 
 const MySwal = withReactContent(Swal);
 
@@ -37,9 +39,17 @@ export const NoteView = () => {
 
     }, [messageSaved])
 
+    const fileInputRef = useRef();
+
 
     const handleSaveNote = () => {
         dispatch(startSavingNote());
+    }
+
+    const handleFileInputChange = ({ target }) => {
+        if (target.files === 0) return;
+
+        dispatch(startUploadingFiles(target.files));
     }
 
     return (
@@ -58,10 +68,34 @@ export const NoteView = () => {
                 <Typography fontSize={39} fontWeight='light'>{date}</Typography>
             </Grid>
 
-            <Grid item>
+            <Grid item >
+
+                <input
+                    type='file'
+                    multiple
+                    onChange={handleFileInputChange}
+                    style={{
+                        display: 'none'
+                    }}
+                    ref={ fileInputRef }
+                />
+
                 <Button
                     variant='contained'
-                    fullWidth
+                    sx={{
+                        height: 40,
+                        backgroundColor: 'primary.main',
+                        borderRadius: 50,
+                        color: '#fff',
+                        mr: 2
+                    }}
+                    onClick={ () => fileInputRef.current.click() }
+                    disabled={isSaving}
+                >
+                    <UploadOutlined />
+                </Button>
+                <Button
+                    variant='contained'
                     sx={{
                         height: 40,
                         px: 3,
