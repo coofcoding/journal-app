@@ -61,7 +61,11 @@ export const NoteView = () => {
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-            ( result.isConfirmed ) && ( dispatch(startDeletingNote()) );
+            ( result.isConfirmed ) && ( dispatch(startDeletingNote()), Swal.fire(
+                'Deleted successfully',
+                '',
+                'success'
+            ) );
         })
     }
 
