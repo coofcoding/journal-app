@@ -5,7 +5,7 @@ export const ImageGallery = ({ images }) => {
         <Box>
             <ImageList variant="masonry" cols={3} gap={15} p={10}>
                 {
-                    images.map((img) => (
+                    images?.map((img) => (
                         <ImageListItem key={img}>
                             <img
                                 srcSet={`${img}?w=248&fit=crop&auto=format&dpr=2 2x`}
