@@ -5,12 +5,13 @@ import { useSelector } from 'react-redux'
 import { useForm } from './../../hooks/useForm';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setActiveNote, startSavingNote, startUploadingFiles } from '../../store/journal';
+import { setActiveNote, startDeletingNote, startSavingNote, startUploadingFiles } from '../../store/journal';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { UploadOutlined } from '@mui/icons-material';
 import { useRef } from 'react';
+import { DeleteOutline } from '@mui/icons-material';
 
 const MySwal = withReactContent(Swal);
 
@@ -52,6 +53,18 @@ export const NoteView = () => {
         dispatch(startUploadingFiles(target.files));
     }
 
+    const onDelete = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            ( result.isConfirmed ) && ( dispatch(startDeletingNote()) );
+        })
+    }
+
     return (
         <Grid
             container
@@ -78,9 +91,27 @@ export const NoteView = () => {
                     style={{
                         display: 'none'
                     }}
-                    ref={ fileInputRef }
+                    ref={fileInputRef}
                 />
 
+                <Button
+                    variant='contained'
+                    sx={{
+                        height: 40,
+                        backgroundColor: 'error.main',
+                        borderRadius: 1,
+                        color: '#fff',
+                        mr: 2,
+                        ':hover': {
+                            backgroundColor: 'error.main',
+                            opacity: 0.9
+                        },
+                    }}
+                    onClick={onDelete}
+                    disabled={isSaving}
+                >
+                    <DeleteOutline />
+                </Button>
                 <Button
                     variant='contained'
                     sx={{
@@ -90,7 +121,7 @@ export const NoteView = () => {
                         color: '#fff',
                         mr: 2
                     }}
-                    onClick={ () => fileInputRef.current.click() }
+                    onClick={() => fileInputRef.current.click()}
                     disabled={isSaving}
                 >
                     <UploadOutlined />
@@ -139,8 +170,8 @@ export const NoteView = () => {
 
             {/* Image gallery */}
 
-            <ImageGallery 
-                images = {note.imageUrls}
+            <ImageGallery
+                images={note.imageUrls}
             />
         </Grid>
     )
