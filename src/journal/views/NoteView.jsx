@@ -23,7 +23,6 @@ export const NoteView = () => {
 
     useEffect(() => {
         dispatch(setActiveNote(formState))
-        console.log('rerender')
     }, [formState])
 
     useEffect(() => {
@@ -63,10 +62,11 @@ export const NoteView = () => {
                 mb: 1,
                 backgroundColor: '#fff',
                 p: 3,
-                borderRadius: 3
+                borderRadius: 1,
+                boxShadow: '0px 4px 8px rgba(0,0,0,.15)'
             }}>
             <Grid item>
-                <Typography fontSize={39} fontWeight='light'>{date}</Typography>
+                <Typography fontSize={30} color={'#00000070'} fontWeight='light'>{date}</Typography>
             </Grid>
 
             <Grid item >
@@ -86,7 +86,7 @@ export const NoteView = () => {
                     sx={{
                         height: 40,
                         backgroundColor: 'primary.main',
-                        borderRadius: 50,
+                        borderRadius: 1,
                         color: '#fff',
                         mr: 2
                     }}
@@ -101,7 +101,7 @@ export const NoteView = () => {
                         height: 40,
                         px: 3,
                         backgroundColor: 'primary.main',
-                        borderRadius: 50
+                        borderRadius: 1
                     }}
                     onClick={handleSaveNote}
                     disabled={isSaving}
@@ -139,7 +139,9 @@ export const NoteView = () => {
 
             {/* Image gallery */}
 
-            <ImageGallery />
+            <ImageGallery 
+                images = {note.imageUrls}
+            />
         </Grid>
     )
 }

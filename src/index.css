@@ -5,3 +5,11 @@
 .swal2-container {
   z-index: 2000;
 }
+
+* {
+  transition: all 100ms;
+}
+
+.userImage:hover {
+  filter: brightness(90%);
+}

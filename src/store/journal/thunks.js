@@ -54,7 +54,7 @@ export const startSavingNote = () => {
         
         const { uid } = getState().auth;
         const { active:note } = getState().journal;
-
+ 
         const noteToFireStore = { ...note };
 
         delete noteToFireStore.id;
