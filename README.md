@@ -10,4 +10,4 @@ This app was developed in the course: [React: De cero a experto ( Hooks y MERN )
 
 ## Backend
 <a href="https://firebase.google.com"><img src="https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black"/></a>
-<a href="https://firebase.google.com"><img src="https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=Cloudinary&logoColor=white"/></a>
+<a href="https://cloudinary.com"><img src="https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=Cloudinary&logoColor=white"/></a>
