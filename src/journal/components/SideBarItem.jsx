@@ -9,7 +9,7 @@ export const SideBarItem = ({ note }) => {
     const dispatch = useDispatch();
 
     const handleActiveNote = () => {
-        dispatch( setActiveNote( note ) )
+        dispatch( setActiveNote( { ...note, imageUrls: [] } ) )
     }
 
     const title = ( note.title.length > 18 ) 
