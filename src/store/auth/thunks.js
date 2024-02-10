@@ -3,6 +3,12 @@ import { loginUserWithEmailPassword, logoutFirebase, registerUserWithEmailPasswo
 import { clearNotesLogout, setActiveNote, setNotes } from "../journal"
 import { checkingCredentials, login, logout } from "./"
 
+export const checkingAuthentications = () => {
+    return async ( dispatch ) => {
+        dispatch( checkingCredentials() );
+    }
+}
+
 export const checkingAuthentication = ( { email, password } ) => {
     // return an asynchronic callback function for dispatching the actions in the slice
     return async( dispatch ) => {

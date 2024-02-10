@@ -6,13 +6,23 @@ import { getFirestore } from 'firebase/firestore/lite';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: import.meta.env.VITE_apiKey,
+//   authDomain: import.meta.env.VITE_authDomain,
+//   projectId: import.meta.env.VITE_projectId,
+//   storageBucket: import.meta.env.VITE_storageBucket,
+//   messagingSenderId: import.meta.env.VITE_messagingSenderId,
+//   appId: import.meta.env.VITE_appId
+// };
+
+// for testing
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_apiKey,
-  authDomain: import.meta.env.VITE_authDomain,
-  projectId: import.meta.env.VITE_projectId,
-  storageBucket: import.meta.env.VITE_storageBucket,
-  messagingSenderId: import.meta.env.VITE_messagingSenderId,
-  appId: import.meta.env.VITE_appId
+  apiKey: 'AIzaSyDqUTZJhUHwBu8yp8Q7Gmm_KsLAgvBk_K4',
+  authDomain: 'react-cursos-1b8be.firebaseapp.com',
+  projectId: 'react-cursos-1b8be',
+  storageBucket: 'react-cursos-1b8be.appspot.com',
+  messagingSenderId: '222508904403',
+  appId: '1:222508904403:web:1cc06249c6da112d25c926'
 };
 
 // Initialize Firebase
