@@ -1,6 +1,7 @@
 export const fileUpload = async( file ) => {
 
-    if ( !file ) throw new Error('Not file selected');
+    // if ( !file ) throw new Error('Not file selected');
+    if ( !file ) return null;
 
     const cloudUrl = 'https://api.cloudinary.com/v1_1/dokm8w8b9/upload';
 
@@ -16,13 +17,14 @@ export const fileUpload = async( file ) => {
             body: formData
         } );
 
-        if( !resp.ok ) throw new Error('This image cannot be uploaded.');
+        if( !resp.ok ) return null;
 
         const cloudResp = await resp.json();
 
         return cloudResp.secure_url;
 
     } catch ( error ) {
-        throw new Error( error.message );
+        return null;
+        // throw new Error( error.message );
     }
 }
