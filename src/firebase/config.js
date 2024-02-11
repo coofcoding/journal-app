@@ -15,14 +15,25 @@ import { getFirestore } from 'firebase/firestore/lite';
 //   appId: import.meta.env.VITE_appId
 // };
 
+// official
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyDqUTZJhUHwBu8yp8Q7Gmm_KsLAgvBk_K4',
+//   authDomain: 'react-cursos-1b8be.firebaseapp.com',
+//   projectId: 'react-cursos-1b8be',
+//   storageBucket: 'react-cursos-1b8be.appspot.com',
+//   messagingSenderId: '222508904403',
+//   appId: '1:222508904403:web:1cc06249c6da112d25c926'
+// };
+
 // for testing
 const firebaseConfig = {
-  apiKey: 'AIzaSyDqUTZJhUHwBu8yp8Q7Gmm_KsLAgvBk_K4',
-  authDomain: 'react-cursos-1b8be.firebaseapp.com',
-  projectId: 'react-cursos-1b8be',
-  storageBucket: 'react-cursos-1b8be.appspot.com',
-  messagingSenderId: '222508904403',
-  appId: '1:222508904403:web:1cc06249c6da112d25c926'
+  apiKey: 'AIzaSyBw5BybaG17TW9lOwkqJJ2A9YHFr_PQPEY',
+  authDomain: 'testing-d6945.firebaseapp.com',
+  projectId: 'testing-d6945',
+  storageBucket: 'testing-d6945.appspot.com',
+  messagingSenderId: '463457247371',
+  appId: '1:463457247371:web:c96b8873931e085418348e',
+  measurementId: "G-8MEDNC9443"
 };
 
 // Initialize Firebase
