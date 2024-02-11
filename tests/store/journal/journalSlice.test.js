@@ -1,5 +1,5 @@
-import { addNewEmptyNote, journalSlice, savingNewNote, setActiveNote, setNotes, setSaving, updateNote } from "../../../src/store/journal/journalSlice";
-import { getUserNotes, initialState } from "../../fixtures/journalFixtures";
+import { addNewEmptyNote, clearNotesLogout, deleteNoteById, journalSlice, savingNewNote, setActiveNote, setNotes, setPhotosToActiveNote, setSaving, updateNote } from "../../../src/store/journal/journalSlice";
+import { activeNote, getUserNotes, initialState } from "../../fixtures/journalFixtures";
 
 describe('Pruebas a journalSlice', () => {
 
@@ -67,7 +67,7 @@ describe('Pruebas a journalSlice', () => {
                 title: 'Second Note',
                 body: 'Description of the second Note',
                 date: '04 February 2024',
-                imageUrls: [ "logo.jpg", "image.jpg" ]
+                imageUrls: ["logo.jpg", "image.jpg"]
             }
         ]
 
@@ -96,17 +96,56 @@ describe('Pruebas a journalSlice', () => {
             title: 'updated First Note',
             body: 'updated the description of the first note',
             date: '03 February 2024',
-            imageUrls: [ "imagen1.jpg", "imagen1.jpg" ],
+            imageUrls: ["imagen1.jpg", "imagen1.jpg"],
         };
 
         const state = journalSlice.reducer(getUserNotes, updateNote(noteToUpdate));
 
-        expect( state ).toEqual({
+        expect(state).toEqual({
             ...getUserNotes,
-            notes: [ noteToUpdate, getUserNotes.notes[1] ],
+            notes: [noteToUpdate, getUserNotes.notes[1]],
             messageSaved: noteToUpdate.title
         })
 
+    })
+
+    test('debe de llamar el setPhotosToActiveNote', () => {
+
+        const newImages = [
+            "newImage.jpg",
+            "newSecondIMG.jpg"
+        ]
+
+        const state = journalSlice.reducer(activeNote, setPhotosToActiveNote(newImages));
+
+        expect(state).toEqual({
+            ...activeNote,
+            active: {
+                ...activeNote.active,
+                imageUrls: [
+                    ...activeNote.active.imageUrls,
+                    ...newImages
+                ]
+            }
+        })
+    })
+
+    test('debe de llamar el deleteNoteById', () => {
+
+        const state = journalSlice.reducer(activeNote, deleteNoteById('abc'));
+
+        expect( state ).toEqual({
+            ...activeNote,
+            active: null,
+            notes: [ activeNote.notes[1] ]
+        })
+    })
+
+    test('debe de llamar el clearNotesLogout', () => {
+
+        const state = journalSlice.reducer(activeNote, clearNotesLogout());
+
+        expect( state ).toEqual( initialState )
     })
 
 })
