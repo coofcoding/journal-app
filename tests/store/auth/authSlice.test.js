@@ -3,7 +3,7 @@ import { authSlice, checkingCredentials, login, logout } from './../../../src/st
 
 describe('Pruebas en authSlice', () => {
 
-    test('debe de regresar el estado unicial y llamarse "auth"', () => {
+    test('debe de regresar el estado inicial y llamarse "auth"', () => {
         
         expect( authSlice.name ).toBe('auth');
 
