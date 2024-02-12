@@ -42,7 +42,7 @@ export const LoginPage = () => {
       title='Log in'
     >
 
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} data-testid="submit-form">
         <Grid
           container
         >
@@ -68,6 +68,9 @@ export const LoginPage = () => {
             <TextField
               label="password"
               type="password"
+              inputProps={{
+                'data-testid': 'password'
+              }}
               fullWidth
               name='password'
               value={password}
@@ -122,6 +125,7 @@ export const LoginPage = () => {
                   height: 50,
                   mb: 2,
                 }}
+                data-testid='google-btn'
                 onClick={onGoogleSignIn}
                 disabled={isAutheticated}
               >
