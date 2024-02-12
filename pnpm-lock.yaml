@@ -76,6 +76,9 @@ devDependencies:
   babel-jest:
     specifier: ^29.7.0
     version: 29.7.0(@babel/core@7.23.9)
+  dotenv:
+    specifier: ^16.4.3
+    version: 16.4.3
   eslint:
     specifier: ^8.55.0
     version: 8.56.0
@@ -3748,6 +3751,11 @@ packages:
     deprecated: Use your platform's native DOMException instead
     dependencies:
       webidl-conversions: 7.0.0
+    dev: true
+
+  /dotenv@16.4.3:
+    resolution: {integrity: sha512-II98GFrje5psQTSve0E7bnwMFybNLqT8Vu8JIFWRjsE3khyNUm/loZupuy5DVzG2IXf/ysxvrixYOQnM6mjD3A==}
+    engines: {node: '>=12'}
     dev: true
 
   /electron-to-chromium@1.4.653:
