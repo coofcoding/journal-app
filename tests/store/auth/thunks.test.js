@@ -7,9 +7,9 @@ import { demoUser } from '../../fixtures/authFixtures';
 jest.mock('../../../src/firebase/provider')
 
 describe('Pruebas en auth thunks', () => {
-
+    
     const dispatch = jest.fn();
-
+    
     beforeEach( () => jest.clearAllMocks() );
 
     test('debe de invocar el checkingCredentials', async() => {
