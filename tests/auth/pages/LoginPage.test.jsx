@@ -12,7 +12,7 @@ const mockStartLoginWithEmailPassword = jest.fn();
 
 jest.mock('../../../src/store/auth/thunks', () => ({
     startGoogleSignIn: () => mockStartGoogleSignIn,
-    startLoginWithEmailPassword: ({ email, password }) => (mockStartLoginWithEmailPassword) => mockStartLoginWithEmailPassword({ email, password })
+    startLoginWithEmailPassword: ({ email, password }) => () => mockStartLoginWithEmailPassword({ email, password })
 }))
 
 jest.mock('react-redux', () => ({
